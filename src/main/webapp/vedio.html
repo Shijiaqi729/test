@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/angular.js"></script>
+    <script>
+        var app = angular.module('vedio', []);
+        app.controller('vediosCtrl', function ($scope, $http) {
+            var thisUrl = document.URL;
+            var getVal = thisUrl.split('?')[1];
+            var id = getVal.split("=")[1];
+
+            $http({
+                method: 'GET',
+                url: 'http://localhost/vedios/'+id
+            }).success(function (data) {
+                $scope.vedios = data; //数据绑定
+            });
+        })
+    </script>
+</head>
+<body ng-app="vedio">
+<div  ng-controller="vediosCtrl">
+
+    <li>演员：{{vedios.actor}}</li>
+    <li>电影名：{{vedios.name}}</li>
+    <li>宣传图片：<img src="img/{{vedios.pic}}" /></li>
+
+</div>
+</body>
+</html>
